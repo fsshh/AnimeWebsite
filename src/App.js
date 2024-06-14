@@ -1,25 +1,26 @@
-import './App.css';
+import store from './redux.js'
+
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import LandingPage from './Webpages/LandingPage.js';
+import HomePage from './Webpages/Home.js';
+import TestFile from './Webpages/testFile.js';
+
+// CSS styles
+import './index.css'
 
 function App() {
   return (
-    <div>
-
-      <h1 id='title'>ANIME WATCHER WEBSITE</h1>
-      
-      <div id='components_container'>
-        <div id='search_bar_container'>
-          <div id='search_bar'></div>
-          <div id='search_button'></div>
-        </div>
-        
-        <div id='buttons_container'>
-          <div className='socmed_button'></div>
-          <div className='socmed_button'></div>
-          <div id='home_button'></div>
-        </div>
-      </div>
-
-    </div>
+    <Provider store={store}>
+      <Router>
+        <Routes>
+          <Route path='/' element={<LandingPage/>} />
+          <Route path='/Home' element={<HomePage/>} />
+          <Route path='/Testfile' element={<TestFile/>} />
+        </Routes>
+      </Router>
+    </Provider>
   );
 }
 
