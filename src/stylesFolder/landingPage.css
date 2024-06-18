@@ -1,0 +1,101 @@
+:root{
+    --theme_color: #FFBADE;
+    --background_color: #201F31;
+    --dark_color: black;
+    --line-height: 1.25rem;
+}
+@font-face {
+    font-family: 'TitleFont';
+    src: url('/public/fonts/sansation.light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+#title{
+    margin: 0;
+    font-family: 'TitleFont';
+    font-size: 50px;
+    font-weight: lighter;
+}
+#components_container{
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+#search_bar_container{
+    display: flex;
+}
+#search_bar{
+    all: unset;
+    color: #111111;
+    width: 563px;
+    height: 50px;
+    background-color: #ffffff;
+    padding-left: 1rem;
+}
+#search_button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 60px;
+    height: 50px;
+    background-color: var(--theme_color);
+}
+
+#buttons_container{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.socmed_button{
+    width: 50px;
+    height: 50px;
+    background-color: var(--theme_color);
+    border-radius: 25px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.socmed_button:nth-child(1) > a > div{
+    position: absolute;
+    top: 7px;
+    left: 7px;
+}
+.socmed_button:nth-child(2) > a > div{
+    position: absolute;
+    top: 7px;
+    left: 6px;
+}
+#home_button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    font-size: 1.1rem;
+
+    width: 200px;
+    height: 50px;
+    background-color: var(--theme_color);
+    border-radius: 5px;
+}
+
+@media only screen and (max-width: 721px) {
+  #search_bar{
+    width: 85vw;
+  }
+  #title{
+    font-size: 40px;
+  }
+}
+  

@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 
+// CSS Styles
+import '../stylesFolder/landingPage.css'
+
 function LandingPage() {
   
   return (
@@ -31,7 +34,7 @@ function LandingPage() {
               </Link>
             </div>
               {/* Home Button */}
-                <Link to='/Home'><div id='home_button' style={{color: 'black'}}>Go to home page...</div></Link>
+                <Link to='/home'><div id='home_button' style={{color: 'black'}}>Go to home page...</div></Link>
           </div>
       </div>
   );

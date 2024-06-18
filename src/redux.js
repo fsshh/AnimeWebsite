@@ -2,46 +2,59 @@ import { createSlice } from "@reduxjs/toolkit";
 import { legacy_createStore as createStore } from "redux";
 import { combineReducers } from "redux";
 
-const initialStateValueofLandingPage = {
-    isLandingPageToggled: true
+const initialAnimeGenreList = {
+  list: []
+}
+const initialAnimeSeason = {
+  animeSeason: 'null'
 }
 
-const initialStateValueofHome = {
-    isHomeToggled: false
+const initialAnimeFormat ={
+  animeFormat: 'null'
 }
 
-const toggleSlice = createSlice({
-    name: 'Toggle',
-    initialState:{
-        initialStateValueofLandingPage,
-        initialStateValueofHome,
+const initialAnimeYear ={
+  animeYear: 'null'
+}
+
+const genreList = createSlice({
+  name: 'filter',
+  initialState: 
+    initialAnimeGenreList, 
+    initialAnimeSeason,
+    initialAnimeFormat,
+    initialAnimeYear,
+
+  reducers: {
+    addAnimeGenre: (state, action) => {
+      state.list.push(action.payload);  // Push the new string to the list
+    },
+    removeAnimeGenre: (state, action) => {
+      state.list = state.list.filter(str => str !== action.payload);
     },
 
-    reducers:{
-        toggleLandingPageOn: (state = initialStateValueofLandingPage) => {
-            state.isLandingPageToggled = true
-        },
-        toggleLandingPageOff: (state = initialStateValueofLandingPage) => {
-            state.isLandingPageToggled = false
-        },
-        toggleHomeOn: (state = initialStateValueofHome) => {
-            state.isHomeToggled = true
-        },
-        toggleHomeOff: (state = initialStateValueofHome) => {
-            state.isHomeToggled = false
-        }
+    addAnimeSeason: (state, action) =>{
+      state.animeSeason = action.payload;
+    },
+
+    addAnimeFormat: (state, action) =>{
+      state.animeFormat = action.payload;
+    },
+
+    addAnimeYear: (state, action) =>{
+      state.animeYear = action.payload
     }
+  }
+});
 
-})
 
-
-export const{
-    toggleLandingPageOn, toggleLandingPageOff,
-    toggleHomeOn, toggleHomeOff
-} = toggleSlice.actions;
+export const{ 
+  addAnimeGenre, removeAnimeGenre,
+  addAnimeSeason, addAnimeFormat, 
+  addAnimeYear} = genreList.actions;
 
 const rootReducer = combineReducers({
-    toggled: toggleSlice.reducer,
+    animeFilter: genreList.reducer,
 })
 
 const store = createStore(rootReducer)

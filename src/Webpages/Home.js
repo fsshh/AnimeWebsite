@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+
+// CSS Styles
+import '../stylesFolder/topNavBar.css'
+import '../stylesFolder/homePage.css'
 
 function HomePage() {
   // FETCH ANILIST API
@@ -52,7 +57,6 @@ function HomePage() {
       anime_images_item.forEach(animeItem =>{
         if(animeItem.classList.contains(anime_item_idNum)){
           animeItem.style.display = 'block'
-          console.log('Anime item number: ' + animeItem.classList.item(1))
         }else{
           animeItem.style.display = 'none'
         }
@@ -134,8 +138,18 @@ function HomePage() {
     <div id='home_page_container'>
       {/* TOP NAVIGATION BAR */}
       <div id="top_navbar">
-        <input id='top_bar_search_bar' type='text' placeholder='Enter anime name...'/>
-
+        <div id='top_bar_container'>
+          <div id='search_bar_container'>
+            <input id='top_bar_search_bar' type='text' placeholder='Enter anime name...'/>
+            <div id='search_bar_icon_container'>
+              <div>
+                <svg width="28px" height="28px" viewBox="0 0 24.00 24.00" fill="none"><g stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Search_Magnifying_Glass"> <path id="Vector" d="M15 15L21 21M10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 13.866 13.866 17 10 17Z" stroke="#111111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
+              </div>
+              <Link to='/filter'><div id='filter_button'>Filter</div></Link>
+            </div>
+          </div>
+          <div id='sign_in_button'> Sign In </div>
+        </div>
       </div>
 
       {/* HOME ANIME IMAGES */}

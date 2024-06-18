@@ -1,26 +1,38 @@
-import React, { useState, useEffect } from 'react';
+// src/App.js
+import React, { useEffect, useState } from 'react';
 
 const TestFile = () => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [yearList, setYearList] = useState([]);
 
-  // Function to update the window width state
-  const updateWindowWidth = () => {
-    setWindowWidth(window.innerWidth);
-  };
 
-  // Use useEffect to add an event listener for window resize
+  function getYearsFromArray(currentYear, oldestYear){
+    let years = [];
+    for (let year = currentYear; year > oldestYear - 1; year--) {
+      years.push(year);
+    }
+
+    return years;
+  }
+  
   useEffect(() => {
-    window.addEventListener('resize', updateWindowWidth);
+    const getYears = getYearsFromArray(2025, 1940);
+    setYearList(getYears);
+  }, [])
+  
 
-    // Cleanup event listener on component unmount
-    return () => window.removeEventListener('resize', updateWindowWidth);
-  }, []);
+    // ADD YEAR FROM 1960 TO 2024 IN DESCENDING ORDER
 
   return (
-    <div style={{ width: windowWidth , backgroundColor: 'red'}}>
-      This div adjusts its width based on the window width.
+    <div>
+      <div>Years: </div>
+      <select name='year' id='year'>
+          {yearList.map((year) => (
+            <option value={year}>{year}</option>
+          ))}
+      </select>
+        
     </div>
   );
-};
+  };
 
 export default TestFile;

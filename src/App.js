@@ -6,9 +6,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingPage from './Webpages/LandingPage.js';
 import HomePage from './Webpages/Home.js';
 import TestFile from './Webpages/testFile.js';
+import FilterPage from './Webpages/FilterPage.js';
 
-// CSS styles
-import './index.css'
+// General CSS styles
+import './stylesFolder/index.css'
 
 function App() {
   return (
@@ -16,8 +17,9 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<LandingPage/>} />
-          <Route path='/Home' element={<HomePage/>} />
-          <Route path='/Testfile' element={<TestFile/>} />
+          <Route path='/home' element={<HomePage/>} />
+          <Route path='/testfile' element={<TestFile/>} />
+          <Route path='/filter' element={<FilterPage/>} />
         </Routes>
       </Router>
     </Provider>

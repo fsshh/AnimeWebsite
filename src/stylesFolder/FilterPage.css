@@ -1,0 +1,132 @@
+:root{
+    --theme_color: #FFBADE;
+    --background_color: #201F31;
+    --dark_color: black;
+    --line-height: 1.25rem;
+}
+#filterPage_container{
+    width: 100vw;
+    height: 100vh;
+}
+/* FILTER SELECT CONTAINER STYLES */
+#select_filter_container{
+    display: flex;
+    gap: 10px
+}
+#select_filter_container > div{
+    background-color: none;
+    font-size: 15px;
+    padding: 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    border: 1px solid grey;
+    border-radius: 10px;
+}
+
+select{
+    all: unset;
+    color: var(--theme_color);
+    width: 80px;
+}
+select > option{
+    color: var(--theme_color);
+    background-color: #484756;
+    border: 1px solid grey;
+}
+
+/* FILTER AND GENRE CONTAINER STYLES */
+#filter-genre_container{
+    width: 100vw;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#filter{
+    width: 95%;
+    background-color: #ffffff2e;
+    border-radius: 20px;
+}
+#filter > div{
+    padding: 5%;
+}
+
+#filter_done_button{
+    padding: 8px 20px;
+    border-radius: 10px;
+    width: fit-content;
+    height: fit-content;
+    background-color: var(--theme_color);
+}
+
+/* GENRE STYLES */
+#genreContainer{
+    width: auto;
+    height: 100%;
+    margin: 1rem 0rem;
+}
+.genreStyle{
+    user-select: none;
+    cursor: pointer;
+
+    display: inline-block;
+    width: fit-content;
+    height: fit-content;
+    background-color: none;
+    border: 1px solid grey;
+
+    margin-bottom: 10px;
+    padding: 5px;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+.genreStyle:hover{
+    
+    color: var(--theme_color);
+    transition: all .2s;
+}
+
+.genreStyle.toggled{
+    border: 1px solid var(--theme_color);
+    color: var(--theme_color);
+}
+
+
+@media only screen and (max-width: 575px){
+    #filter{
+        width: 100%;
+        height: 100%;
+        background-color: #ffffff2e;
+        border-radius: 0px;
+    }
+
+    #genreContainer{
+        overflow-y: scroll;
+        height: 8rem;
+    }
+}
+@media only screen and (max-width: 500px){
+    #select_filter_container{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        /* width: 150px; */
+    }
+    #select_filter_container > div{
+        justify-content: start;
+    }
+
+    
+    select{
+        width: 90px;
+    }
+    #seasons{
+        width: 90px;
+    }
+}

@@ -1,0 +1,77 @@
+:root{
+    --theme_color: #FFBADE;
+    --background_color: #201F31;
+    --dark_color: black;
+    --line-height: 1.25rem;
+}
+
+/* TOP BAR NAVIGATION STYLES */
+#top_navbar{
+    display: flex;
+    align-items: center;
+    background-color: var(--background_color);
+    width: 100vw;
+    height: 3.75rem;
+    justify-content: center;
+}
+#top_bar_container{
+    display: flex;
+    flex-direction: row;
+    width: 98%;
+    justify-content: space-between;
+}
+#top_bar_search_bar{
+    all: unset;
+  
+    width: 360px;
+    height: 40px;
+    color: #111111;
+    background-color: #ffffff;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding-left: 1rem;
+}
+#search_bar_icon_container{
+    height: 40px;
+    width: 100px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: #ffffff;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+#filter_button{
+    font-size: .8rem;
+    background-color: #111111;
+    border-radius: 5px;
+    padding: 3px 6px;
+}
+#filter_button:hover{
+    background-color: var(--theme_color);
+    color: #111111;
+}
+#sign_in_button{
+    width: auto;
+    height: auto;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--theme_color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media only screen and (max-width: 575px){
+    #top_bar_search_bar{
+        width: 100%;
+    }
+    #search_bar_container{
+        width: 100%;
+    }
+    #sign_in_button{
+        display: none;
+    }
+}

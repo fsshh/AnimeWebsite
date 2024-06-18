@@ -1,0 +1,45 @@
+:root{
+  --theme_color: #FFBADE;
+  --background_color: #201F31;
+  --dark_color: black;
+  --line-height: 1.25rem;
+}
+
+body{
+  padding: 0;
+  margin: 0;
+
+  background-color: var(--background_color);
+  color: #ffffff;
+
+  width: 100vw;
+  height: 100vh;
+
+  overflow-x: hidden;
+
+  font-family: 'Poppins', sans-serif;
+}
+button{
+  all: unset
+}
+a{
+  all: unset;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ffbade77;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--theme_color);
+}
