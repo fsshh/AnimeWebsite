@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+import TopNavBar from './TopNavBarPage';
 // CSS Styles
-import '../stylesFolder/topNavBar.css'
 import '../stylesFolder/homePage.css'
 
 function HomePage() {
@@ -66,6 +66,39 @@ function HomePage() {
   }
   useEffect(() => {
     AnimeItemTransition()
+  }, [])
+  
+  // FETCH TOP 10 ANIME FROM API
+  const [topAnimeList, setTopAnimeList] = useState([])
+  useEffect(() => {
+    const fetchTopAnime = async () => {
+      const query = `
+        query {
+          Page(page: 1, perPage: 10) {
+            media(type: ANIME, sort: SCORE_DESC) {
+              id
+              title {
+                english
+              }
+              coverImage {
+                large
+              }
+            }
+          }
+        }
+      `;
+
+      try {
+        const response = await axios.post('https://graphql.anilist.co', {
+          query: query
+        });
+        setTopAnimeList(response.data.data.Page.media);
+      } catch (error) {
+        console.error('Error fetching trending anime:', error);
+      }
+    };
+
+    fetchTopAnime();
   }, [])
   
 
@@ -137,20 +170,7 @@ function HomePage() {
   return (
     <div id='home_page_container'>
       {/* TOP NAVIGATION BAR */}
-      <div id="top_navbar">
-        <div id='top_bar_container'>
-          <div id='search_bar_container'>
-            <input id='top_bar_search_bar' type='text' placeholder='Enter anime name...'/>
-            <div id='search_bar_icon_container'>
-              <div>
-                <svg width="28px" height="28px" viewBox="0 0 24.00 24.00" fill="none"><g stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Search_Magnifying_Glass"> <path id="Vector" d="M15 15L21 21M10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 13.866 13.866 17 10 17Z" stroke="#111111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
-              </div>
-              <Link to='/filter'><div id='filter_button'>Filter</div></Link>
-            </div>
-          </div>
-          <div id='sign_in_button'> Sign In </div>
-        </div>
-      </div>
+      <TopNavBar/>
 
       {/* HOME ANIME IMAGES */}
       <div id="home_image_container">
@@ -208,25 +228,36 @@ function HomePage() {
       <div id='sliding_card_texts'>
         <div>
           <h1>TRENDING NOW</h1>
-          <div>{'See All >'}</div>
+          <Link to='/trending-anime'><div>{'See All >'}</div></Link>
         </div>
       </div>
       <div id='anime_sliding_cards_container'>
-        {animeList.map(anime => (
-          <div key={anime.id} className='anime_sliding_card_items' style={{width: `${cardWidth}px`, height: `auto`}}>
-            <img style={{width:'auto', height: `${cardHeight}px`}} src={anime.coverImage.large} alt='anime_cover_image'></img>
-            <div style={{width: `${textWidth}px`}} className='anime_sliding_card_info_container'>
-              <div className='anime_sliding_card_info'>Sub | Dub</div>
-              <div className='anime_sliding_card_info'>{anime.title.english}</div>
+          {animeList.map(trendingAnime => (
+            <div key={trendingAnime.id} className='anime_sliding_card_items' style={{width: `${cardWidth}px`, height: `auto`}}>
+              <img style={{width:'auto', height: `${cardHeight}px`}} src={trendingAnime.coverImage.large} alt='anime_cover_image'></img>
+              <div style={{width: `${textWidth}px`}} className='anime_sliding_card_info_container'>
+                <div className='anime_sliding_card_info'>Sub | Dub</div>
+                <div className='anime_sliding_card_info'>{trendingAnime.title.english}</div>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
-      <div>
-        random text
-      </div>
+      <div id='topAnime_flex_container'>
+        <div id='topAnime_texts'>
+          <h1>Top 100 Anime</h1>
+          <Link to='/top-anime'><div>See all {'>'}</div></Link>
+        </div>
+        <div id='topAnime_container'>
+            {topAnimeList.map(topAnime => (
+              <div key={topAnime.id} className='topAnime_card_container'>
+              <img src={topAnime.coverImage.large} alt='topAnime_cover_image'></img>
+              <div className='topAnime_title'>{topAnime.title.english}</div>
+              </div>
+            ))}
+        </div>
 
-    </div>
+      </div>
+      </div>
     
   );
 }

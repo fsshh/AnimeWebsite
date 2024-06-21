@@ -120,6 +120,44 @@
     overflow: hidden;
 }
 
+/* TOP 100 ANIME STYLES */
+#topAnime_flex_container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#topAnime_texts{
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+#topAnime_container{
+    width: 95%;
+    grid-gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr) );
+}
+.topAnime_card_container{
+    width: auto;
+    height: auto;
+}
+.topAnime_card_container > img{
+    border-radius: 10px;
+    width: 100%;
+    height: 280px;
+}
+.topAnime_title{
+    display: -webkit-box;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+}
+
 @media only screen and (max-width: 799px) {
   #anime_description{
     display: none;
@@ -162,4 +200,16 @@
   #sliding_card_texts > div > h1{
     font-size: 25px;
   }
+}
+
+@media only screen and (max-width: 445px){
+    #topAnime_container{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .topAnime_card_container > img{
+        height: 200px;
+    }
+    #topAnime_texts > h1{
+        font-size: 28px;
+    }
 }

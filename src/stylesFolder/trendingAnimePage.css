@@ -1,0 +1,78 @@
+:root{
+    --theme_color: #FFBADE;
+    --background_color: #201F31;
+    --dark_color: black;
+    --line-height: 1.25rem;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+#trending_anime_flex_container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#trending_anime_flex_container > h1{
+    align-self: baseline;
+    margin-left: 10px;
+}
+#trending_anime_container{
+    width: 98%;
+    grid-gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr) );
+}
+
+.trending_anime_item{
+    border-radius: 10px;
+}
+.trending_anime_item > img{
+    width: 100%;
+    height: 280px;
+    
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+}
+.trending_anime_info_container{
+    margin: 0px 5px;
+}
+.trending_anime_info_container > div:nth-child(1){
+    color: var(--theme_color);
+}
+
+.anime_trending_title{
+    display: -webkit-box;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+}
+
+#page_button_container{
+    display: flex;
+    gap: 10px
+}
+#page_button_container > button{
+    width: auto;
+    height: auto;
+}
+#page_input{
+    all: unset;
+    width: 20px;
+}
+
+
+@media only screen and (max-width: 425px){
+    #trending_anime_container{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media only screen and (max-width: 375px){
+    .trending_anime_item > img{
+        height: 220px;
+    }
+}

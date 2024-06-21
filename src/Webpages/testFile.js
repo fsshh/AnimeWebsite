@@ -1,36 +1,89 @@
 // src/App.js
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState} from 'react';
+import axios from 'axios';
+import TopNavBar from './TopNavBarPage';
+
+import '../stylesFolder/testFile.css'
 
 const TestFile = () => {
-  const [yearList, setYearList] = useState([]);
+  const [animeList, setAnimeList] = useState([]);
+  const [apiLoading, setApiLoading] = useState(true);
 
+  const [pageCount, setPageCount] = useState(1);
 
-  function getYearsFromArray(currentYear, oldestYear){
-    let years = [];
-    for (let year = currentYear; year > oldestYear - 1; year--) {
-      years.push(year);
-    }
-
-    return years;
+  function fetchNextAnimePage(){
+    console.log(pageCount);
+    setPageCount(pageCount + 1);
+  }
+  
+  function fetchPrevAnimePage(){
+    console.log(pageCount)
+    setPageCount(pageCount <= 1 ? pageCount : pageCount - 1);
   }
   
   useEffect(() => {
-    const getYears = getYearsFromArray(2025, 1940);
-    setYearList(getYears);
-  }, [])
-  
+    const fetchAnime = async () => {
+      const query = `
+          query {
+            Page(page: ${pageCount}, perPage: 10) {
+              media(type: ANIME) {
+              id
+              title {
+                  romaji
+                  english
+                  native
+              }
+              description
+              coverImage {
+                  large
+              }
+              genres
+              season
+              seasonYear
+              format
+              }
+            }
+          }
+      `;
 
-    // ADD YEAR FROM 1960 TO 2024 IN DESCENDING ORDER
+      const url = 'https://graphql.anilist.co';
+
+      try {
+          const response = await axios.post(url, { query });
+          setAnimeList(response.data.data.Page.media);
+      } catch (error) {
+          console.error('Error fetching data:', error);
+      } finally{
+          setApiLoading(false);
+      }
+    };
+    fetchAnime();
+
+  }, [pageCount])
+  
 
   return (
     <div>
-      <div>Years: </div>
-      <select name='year' id='year'>
-          {yearList.map((year) => (
-            <option value={year}>{year}</option>
+      <TopNavBar/>
+      <button className='testButton' onClick={fetchPrevAnimePage}>Prev Page</button>
+      <button className='testButton' onClick={fetchNextAnimePage}>Next Page</button>
+      <h2>Page: {pageCount}</h2>
+      {apiLoading ? (<p>Loading...</p>) : (
+        <ul>
+          {animeList.map(anime => (
+              <li key={anime.id}>
+                  <h2>Anime: {anime.title.romaji}</h2>
+                  <p>Desciption: {anime.description}</p>
+                  <p>Genre: {anime.genres}</p>
+                  <p>Season & Year: {anime.season}, {anime.seasonYear}</p>
+                  <p>Format: {anime.format}</p>
+                  <img src={anime.coverImage.large} alt={anime.title.romaji} />
+              </li>
           ))}
-      </select>
-        
+        </ul>
+      )}
+        <div>Hello world</div>
+
     </div>
   );
   };

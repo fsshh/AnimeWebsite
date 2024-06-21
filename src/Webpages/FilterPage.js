@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-import { Link } from 'react-router-dom';
-
-import '../stylesFolder/topNavBar.css'
 import '../stylesFolder/FilterPage.css'
+import '../stylesFolder/trendingAnimePage.css'
+
+import TopNavBar from './TopNavBarPage';
 
 import { useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -67,8 +67,10 @@ function FilterPage(){
     
     
     // DISPLAY ANIMES THAT HAS SAME GENRE THAT USER PICKED
+    const [currentPage, setCurrentPage] = useState(0);
+    const [lastPage, setLastPage] = useState(1);
+
     const [animeList, setAnimeList] = useState([]);
-    const [apiLoading, setApiLoading] = useState(true);
 
     function fetchAnimeFilter(){
         var selectedSeason = document.getElementById("seasons").value;
@@ -81,46 +83,66 @@ function FilterPage(){
         const format = selectedFormat === "" ? "" : `format: ${animeFormat}`
 
         const fetchAnime = async () => {
-        const query = `
-            query {
-                Page(page: 1, perPage: 10) {
-                    media(genre_in: ${JSON.stringify(animeGenreList)}, type: ANIME, ${season}, ${seasonYear} ${format}) {
-                    id
-                    title {
-                        romaji
-                        english
-                        native
-                    }
-                    description
-                    coverImage {
-                        large
-                    }
-                    genres
-                    season
-                    seasonYear
-                    format
+            const query = `
+                query {
+                    Page(page: ${currentPage}, perPage: 18) {
+                        
+                        pageInfo{
+                                currentPage
+                                lastPage
+                        }
+                        media(genre_in: ${JSON.stringify(animeGenreList)}, type: ANIME, sort: POPULARITY_DESC, ${season}, ${seasonYear} ${format}) {
+                            id
+                            title {
+                                romaji
+                                english
+                                native
+                            }
+                            coverImage {
+                                large
+                            }
+                        }
                     }
                 }
-            }
-        `;
+            `;
 
-        const url = 'https://graphql.anilist.co';
+            const url = 'https://graphql.anilist.co';
 
-        try {
-            const response = await axios.post(url, { query });
-            setAnimeList(response.data.data.Page.media);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        } finally{
-            setApiLoading(false);
-        }
+            try {
+                const response = await axios.post(url, { query });
+                setAnimeList(response.data.data.Page.media);
+                setCurrentPage(response.data.data.Page.pageInfo.currentPage);
+                setLastPage(response.data.data.Page.pageInfo.lastPage);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            } 
         };
 
         fetchAnime();
+
     }
-    
-    const [genres, setGenres] = useState([]);
+
+    function nextPage(){
+        if(currentPage >= lastPage){
+            alert('You are already at the last page')
+        }else{
+            setCurrentPage(currentPage + 1);
+        }   
+    }
+    function prevPage(){
+        if(currentPage <= 1){
+            alert('You are already at the first page')
+        }else{
+            setCurrentPage(currentPage - 1);
+        }
+    }
+    // RE-RENDER THE FETCHING OF API IF PAGE IS CHANGED
+    useEffect(() => {
+        fetchAnimeFilter()
+      }, [currentPage])
+
     // FETCH GENRE COLLECTION IN ANILIST API
+    const [genres, setGenres] = useState([]);
     useEffect(() => {
         const fetchGenres = async () => {
         try {
@@ -142,24 +164,10 @@ function FilterPage(){
         fetchGenres();
     }, []);
 
-    
     return(
         <div id='filterPage_container'>
             {/* TOP NAVIGATION BAR */}
-            <div id="top_navbar">
-                <div id='top_bar_container'>
-                <div id='search_bar_container'>
-                    <input id='top_bar_search_bar' type='text' placeholder='Enter anime name...'/>
-                    <div id='search_bar_icon_container'>
-                    <div>
-                        <svg width="28px" height="28px" viewBox="0 0 24.00 24.00" fill="none"><g strokeWidth="0"></g><g strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Search_Magnifying_Glass"> <path id="Vector" d="M15 15L21 21M10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 13.866 13.866 17 10 17Z" stroke="#111111" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"></path> </g> </g></svg>
-                    </div>
-                    <Link to='/filter'><div id='filter_button'>Filter</div></Link>
-                    </div>
-                </div>
-                <div id='sign_in_button'> Sign In </div>
-                </div>
-            </div>
+            <TopNavBar/>
             <div id='filter-genre_container'>
                 <div id='filter'>
                     <div>
@@ -208,20 +216,27 @@ function FilterPage(){
                     </div>
                 </div>
             </div>
-            {apiLoading ? (<p>Loading...</p>) : (
-                <ul>
-                {animeList.map(anime => (
-                    <li key={anime.id}>
-                        <h2>Anime: {anime.title.romaji}</h2>
-                        <p>Desciption: {anime.description}</p>
-                        <p>Genre: {anime.genres}</p>
-                        <p>Season & Year: {anime.season}, {anime.seasonYear}</p>
-                        <p>Format: {anime.format}</p>
-                        <img src={anime.coverImage.large} alt={anime.title.romaji} />
-                    </li>
-                ))}
-                </ul>
-            )}
+
+            <div id='trending_anime_flex_container'>
+                <h1>Current Page: {currentPage} | Last Page: {lastPage}</h1>
+                <div id='trending_anime_container'>
+                    {animeList.map(anime => (
+                        <div key={anime.id} className='trending_anime_item'>
+                            <img src={anime.coverImage.large} alt='anime_cover_image'></img>
+                            <div className='trending_anime_info_container'>
+                                <div>Sub | Dub</div>
+                                <div className='anime_trending_title' >{anime.title.english}</div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <div id='page_button_container'>
+                    <button onClick={prevPage}>{'<'}</button>
+                    <div>{currentPage} of {lastPage}</div>
+                    <button onClick={nextPage}>{'>'}</button>
+                </div>
+            </div>
+
         </div>
     )
 
