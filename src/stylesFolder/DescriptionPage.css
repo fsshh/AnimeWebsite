@@ -101,9 +101,6 @@
     #anime_info_container{
         flex-direction: column;
     }
-    #anime_info_description{
-        display: none;
-    }
     #anime_side_info{
         display: flex;
         gap: 10px;
@@ -111,7 +108,7 @@
         transform: translateY(-2%);
     }
     #anime_info{
-        width: 100%;
+        width: 95%;
     }
     #anime_side_info > div {
         display: flex;

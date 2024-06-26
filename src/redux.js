@@ -20,6 +20,10 @@ const initialAnimeYear ={
 const initialAnimeID = {
   animeID: '1'
 }
+
+const animeSearch = {
+  searchedAnime: 'null'
+}
 const genreList = createSlice({
   name: 'filter',
   initialState: 
@@ -28,6 +32,7 @@ const genreList = createSlice({
     initialAnimeFormat,
     initialAnimeYear,
     initialAnimeID,
+    animeSearch,
 
   reducers: {
     addAnimeGenre: (state, action) => {
@@ -51,6 +56,10 @@ const genreList = createSlice({
     
     addAnimeID: (state, action) =>{
       state.animeID = action.payload
+    },
+
+    addSearchAnimeString: (state, action) =>{
+      state.searchedAnime = action.payload
     }
   }
 });
@@ -59,7 +68,8 @@ const genreList = createSlice({
 export const{ 
   addAnimeGenre, removeAnimeGenre,
   addAnimeSeason, addAnimeFormat, 
-  addAnimeYear, addAnimeID} = genreList.actions;
+  addAnimeYear, addAnimeID, 
+  addSearchAnimeString} = genreList.actions;
 
 const rootReducer = combineReducers({
     animeFilter: genreList.reducer,

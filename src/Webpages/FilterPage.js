@@ -9,9 +9,8 @@ import { useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addAnimeGenre, removeAnimeGenre, 
         addAnimeSeason, addAnimeFormat, 
-        addAnimeYear} from '../redux';
+        addAnimeYear, addAnimeID} from '../redux';
 
-import { addAnimeID } from '../redux';
 import { Link } from 'react-router-dom';
 
 function FilterPage(){
@@ -145,6 +144,7 @@ function FilterPage(){
     }
     // RE-RENDER THE FETCHING OF API IF PAGE IS CHANGED
     useEffect(() => {
+        // eslint-disable-next-line
         fetchAnimeFilter()
     }, [currentPage])
 

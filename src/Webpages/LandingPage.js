@@ -3,12 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 // CSS Styles
 import '../stylesFolder/landingPage.css'
 
-function LandingPage() {
-  const navigate = useNavigate();
+// redux
+import { addSearchAnimeString } from "../redux";
+import { useDispatch } from "react-redux";
 
+function LandingPage() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   function searchClick(){
     const searchBar = document.getElementById('search_bar');
     if(searchBar.value !== ''){
+      dispatch(addSearchAnimeString(searchBar.value));
       navigate('/search-anime');
     }else{
       alert('Empty string :: Please input a value')
