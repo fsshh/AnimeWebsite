@@ -1,0 +1,131 @@
+#anime_bannerImage{
+    width: 100vw;
+    height: 70vh; 
+    background-position: 50% 35%;
+    background-size: cover;
+}
+
+#anime_info_container{
+    width: 100vw;
+    height: auto;
+
+    display: flex;
+    gap: 2rem;
+
+    padding: 1rem;
+
+    background-color: #191826;
+}
+#anime_side_info > img{
+    height: 250px;
+}
+
+#anime_side_info{
+    position: relative;
+    transform: translateY(-6%);
+}
+#anime_side_info > div {
+    background-color: #100f18;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+#anime_side_info > div > div{
+    margin: 5px 0px;
+    display: flex;
+    flex-direction: column;
+}
+#anime_side_info > div > div > div:nth-child(2){
+   color: grey;
+}
+#anime_info{
+    width: 75%;
+    height: 100%;
+}
+#anime_info_description{
+    color: grey;
+    height: 100%;
+    margin: 20px 0px;
+    transition: all .2s;
+}
+#anime_info_description:hover{
+    color: rgb(165, 165, 165);
+    transition: all .2s;
+}
+#animeGenre_Container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0px; 
+}
+
+#anime_episodes_container{
+    display: flex;
+    flex-direction: column;
+}
+
+#anime_episodes_container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 200px);
+    gap: 6px;
+}
+.episode{
+    display: grid;
+    align-items: end;
+    width: 200px;
+}
+.episode > *{
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+}
+.episode_thumbnail{
+    width: 200px;
+    border-radius: 10px;
+}
+.episode_title{
+    z-index: 2;
+    color: #ffffff;
+
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    overflow: hidden;
+
+    background-color: rgba(0, 0, 0, 0.508);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 10px 0px;
+}
+@media only screen and (max-width: 760px){
+    #anime_bannerImage{
+        height: 40vh;
+    }
+    #anime_info_container{
+        flex-direction: column;
+    }
+    #anime_info_description{
+        display: none;
+    }
+    #anime_side_info{
+        display: flex;
+        gap: 10px;
+        position: relative;
+        transform: translateY(-2%);
+    }
+    #anime_info{
+        width: 100%;
+    }
+    #anime_side_info > div {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        height: fit-content;
+    }
+    #anime_side_info > img{
+       width: 150px;
+       height: 200px;
+    }
+}
+@media only screen and (max-width: 375px){
+    #anime_side_info{
+        flex-direction: column;
+    }
+}

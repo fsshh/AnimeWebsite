@@ -4,11 +4,20 @@ import TopNavBar from './TopNavBarPage';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import { addAnimeID } from '../redux';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 function TopAnime() {
     // FETCH ANILIST API
     const [animeList, setAnimeList] = useState([]);
 
     const [apiLoading, setApiLoading] = useState(true);
+
+    const dispatch = useDispatch();
+    function getAnimeID(animeID){
+        dispatch(addAnimeID(animeID))
+    }
 
     useEffect(() => {
         const fetchAnime = async () => {
@@ -56,13 +65,13 @@ function TopAnime() {
                 {apiLoading ? (<p>Loading...</p>) : (
                     <div id='trending_anime_container'>
                         {animeList.map(anime => (
-                            <div key={anime.id} className='trending_anime_item'>
+                            <Link to='/anime-description'><div key={anime.id} className='trending_anime_item' onClick={() => getAnimeID(anime.id)}>
                                 <img src={anime.coverImage.large} alt='anime_cover_image'></img>
                                 <div className='trending_anime_info_container'>
                                     <div>Sub | Dub</div>
                                     <div className='anime_trending_title' >{anime.title.english}</div>
                                 </div>
-                            </div>
+                            </div></Link>
                         ))}
                     </div>
                 )}

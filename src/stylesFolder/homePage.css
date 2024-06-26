@@ -120,7 +120,7 @@
     overflow: hidden;
 }
 
-/* TOP 100 ANIME STYLES */
+/* CARD ANIME STYLES */
 #topAnime_flex_container{
     width: 100%;
     display: flex;
@@ -128,34 +128,88 @@
     justify-content: center;
     align-items: center;
 }
-#topAnime_texts{
+#cardAnime_flex_container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#cardAnime_texts{
     width: 95%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
-#topAnime_container{
+#cardAnime_container{
     width: 95%;
     grid-gap: 10px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr) );
 }
-.topAnime_card_container{
+.cardAnime_card_container{
     width: auto;
     height: auto;
 }
-.topAnime_card_container > img{
+.cardAnime_card_container > img{
     border-radius: 10px;
     width: 100%;
     height: 280px;
 }
-.topAnime_title{
+.cardAnime_title{
     display: -webkit-box;
     overflow : hidden;
     text-overflow: ellipsis;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;  
+}
+
+/* TOP ANIME STYLE IF WINDOW WIDTH IS MORE THAN 1040 PIXELS */
+#cardAnime_container_wideWidth{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.cardAnime_card_container_wideWidth{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: #191826;
+
+    width: 90vw;
+    height: 80px;
+
+    padding: 10px;
+    border-radius: 8px;
+}
+.cardAnime_card_container_wideWidth > img{
+    height: 75px;
+    width: 68px;
+    border-radius: 5px;
+}
+.topAnime_titleGenre_container{
+    width: 550px;
+}
+.anime_genre_container{
+    display: flex;
+    gap: 5px;
+}
+.topAnimeGenre{
+    width: fit-content;
+    height: fit-content;
+    padding: 2px 10px;
+    border-radius: 10px;
+}
+
+.topAnime_other_info_container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-right: 50px;
+}
+.topAnime_other_info_container > div:nth-child(2){
+    color: gray;
 }
 
 @media only screen and (max-width: 799px) {
@@ -203,13 +257,13 @@
 }
 
 @media only screen and (max-width: 445px){
-    #topAnime_container{
+    #cardAnime_container{
         grid-template-columns: repeat(2, 1fr);
     }
-    .topAnime_card_container > img{
+    .cardAnime_card_container > img{
         height: 200px;
     }
-    #topAnime_texts > h1{
+    #cardAnime_texts > h1{
         font-size: 28px;
     }
 }

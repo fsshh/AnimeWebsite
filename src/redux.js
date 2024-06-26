@@ -17,6 +17,9 @@ const initialAnimeYear ={
   animeYear: 'null'
 }
 
+const initialAnimeID = {
+  animeID: '1'
+}
 const genreList = createSlice({
   name: 'filter',
   initialState: 
@@ -24,6 +27,7 @@ const genreList = createSlice({
     initialAnimeSeason,
     initialAnimeFormat,
     initialAnimeYear,
+    initialAnimeID,
 
   reducers: {
     addAnimeGenre: (state, action) => {
@@ -43,6 +47,10 @@ const genreList = createSlice({
 
     addAnimeYear: (state, action) =>{
       state.animeYear = action.payload
+    },
+    
+    addAnimeID: (state, action) =>{
+      state.animeID = action.payload
     }
   }
 });
@@ -51,7 +59,7 @@ const genreList = createSlice({
 export const{ 
   addAnimeGenre, removeAnimeGenre,
   addAnimeSeason, addAnimeFormat, 
-  addAnimeYear} = genreList.actions;
+  addAnimeYear, addAnimeID} = genreList.actions;
 
 const rootReducer = combineReducers({
     animeFilter: genreList.reducer,

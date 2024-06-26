@@ -10,6 +10,8 @@ import FilterPage from './Webpages/FilterPage.js';
 import TrendingAnime from './Webpages/TrendingAnimePage.js';
 import PopularAnime from './Webpages/PopularAnimePage.js';
 import TopAnime from './Webpages/TopAnimePage.js';
+import AnimeDescription from './Webpages/animeDescription.js';
+import SearchAnime from './Webpages/SearchPage.js';
 
 // General CSS styles
 import './stylesFolder/index.css'
@@ -26,6 +28,8 @@ function App() {
           <Route path='/trending-anime' element={<TrendingAnime/>} />
           <Route path='/popular-anime' element={<PopularAnime/>} />
           <Route path='/top-anime' element={<TopAnime/>} />
+          <Route path='/anime-description' element={<AnimeDescription/>} />
+          <Route path='/search-anime' element={<SearchAnime/>} />
         </Routes>
       </Router>
     </Provider>

@@ -11,12 +11,19 @@ import { addAnimeGenre, removeAnimeGenre,
         addAnimeSeason, addAnimeFormat, 
         addAnimeYear} from '../redux';
 
+import { addAnimeID } from '../redux';
+import { Link } from 'react-router-dom';
+
 function FilterPage(){
     const animeGenreList = useSelector((state) => state.animeFilter.list)
     const animeSeason = useSelector((state) => state.animeFilter.animeSeason)
     const animeFormat = useSelector((state) => state.animeFilter.animeFormat)
     const animeYear = useSelector((state) => state.animeFilter.animeYear)
     const dispatch = useDispatch();
+
+    function getAnimeID(animeID){
+        dispatch(addAnimeID(animeID))
+    }
 
     // GENERATE YEAR FROM CURRENT TO OLDEST ANIME PUBLISHED
     const [yearList, setYearList] = useState([]);
@@ -139,7 +146,7 @@ function FilterPage(){
     // RE-RENDER THE FETCHING OF API IF PAGE IS CHANGED
     useEffect(() => {
         fetchAnimeFilter()
-      }, [currentPage])
+    }, [currentPage])
 
     // FETCH GENRE COLLECTION IN ANILIST API
     const [genres, setGenres] = useState([]);
@@ -221,13 +228,13 @@ function FilterPage(){
                 <h1>Current Page: {currentPage} | Last Page: {lastPage}</h1>
                 <div id='trending_anime_container'>
                     {animeList.map(anime => (
-                        <div key={anime.id} className='trending_anime_item'>
+                        <Link to='/anime-description'><div key={anime.id} className='trending_anime_item' onClick={() => getAnimeID(anime.id)}>
                             <img src={anime.coverImage.large} alt='anime_cover_image'></img>
                             <div className='trending_anime_info_container'>
                                 <div>Sub | Dub</div>
                                 <div className='anime_trending_title' >{anime.title.english}</div>
                             </div>
-                        </div>
+                        </div></Link>
                     ))}
                 </div>
                 <div id='page_button_container'>

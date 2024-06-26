@@ -23,7 +23,7 @@
     align-items: center;
     gap: 10px;
 
-    border: 1px solid grey;
+    border: 1px solid var(--theme_color);
     border-radius: 10px;
 }
 
@@ -35,7 +35,7 @@ select{
 select > option{
     color: var(--theme_color);
     background-color: #484756;
-    border: 1px solid grey;
+    border: 1px solid var(--theme_color);
 }
 
 /* FILTER AND GENRE CONTAINER STYLES */
@@ -49,7 +49,7 @@ select > option{
 }
 #filter{
     width: 95%;
-    background-color: #ffffff2e;
+    background-color: #191826;
     border-radius: 20px;
 }
 #filter > div{
@@ -78,7 +78,7 @@ select > option{
     width: fit-content;
     height: fit-content;
     background-color: none;
-    border: 1px solid grey;
+    border: 1px solid var(--theme_color);
 
     margin-bottom: 10px;
     padding: 5px;

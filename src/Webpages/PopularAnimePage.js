@@ -3,6 +3,11 @@ import '../stylesFolder/trendingAnimePage.css'
 
 import { useState, useEffect } from "react";
 import axios from "axios";
+
+import { addAnimeID } from '../redux';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 function PopularAnime(){
     // FETCH ANILIST API
     const [animeList, setAnimeList] = useState([]);
@@ -11,6 +16,11 @@ function PopularAnime(){
     const [lastPage, setLastPage] = useState(1);
     
     const [apiLoading, setApiLoading] = useState(true);
+
+    const dispatch = useDispatch();
+    function getAnimeID(animeID){
+        dispatch(addAnimeID(animeID))
+    }
 
     useEffect(() => {
         const fetchAnime = async () => {
@@ -58,14 +68,6 @@ function PopularAnime(){
         fetchAnime();
     }, [currentPage]);
 
-    function changePageNumber(){
-        const pageInputValue = document.getElementById('page_input').value;
-        if(pageInputValue > lastPage|| pageInputValue <= 0){
-            alert('Page does not exist')
-        }else{
-            setCurrentPage(pageInputValue);
-        }
-    }
     function nextPage(){
         if(currentPage >= lastPage){
             alert('You are already at the last page')
@@ -94,13 +96,13 @@ function PopularAnime(){
                 {apiLoading ? (<p>Loading...</p>) : (
                     <div id='trending_anime_container'>
                         {animeList.map(anime => (
-                            <div key={anime.id} className='trending_anime_item'>
+                            <Link to='/anime-description'><div key={anime.id} className='trending_anime_item' onClick={() => getAnimeID(anime.id)}>
                                 <img src={anime.coverImage.large} alt='anime_cover_image'></img>
                                 <div className='trending_anime_info_container'>
                                     <div>Sub | Dub</div>
                                     <div className='anime_trending_title' >{anime.title.english}</div>
                                 </div>
-                            </div>
+                            </div></Link>
                         ))}
                     </div>
                 )}

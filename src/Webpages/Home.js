@@ -6,10 +6,18 @@ import TopNavBar from './TopNavBarPage';
 // CSS Styles
 import '../stylesFolder/homePage.css'
 
+import { addAnimeID } from '../redux';
+import { useDispatch } from 'react-redux';
+
 function HomePage() {
+  const dispatch = useDispatch();
+  
+  function getAnimeID(animeID){
+    dispatch(addAnimeID(animeID))
+  }
+  
   // FETCH ANILIST API
   const [animeList, setAnimeList] = useState([]);
-  
   useEffect(() => {
     const fetchTrendingAnime = async () => {
       const query = `
@@ -69,6 +77,38 @@ function HomePage() {
   }, [])
   
   // FETCH TOP 10 ANIME FROM API
+  const [popularAnimeList, setPopularAnimeList] = useState([])
+  useEffect(() => {
+    const fetchPopularAnime = async () => {
+      const query = `
+        query {
+          Page(page: 1, perPage: 10) {
+            media(type: ANIME, sort: POPULARITY_DESC) {
+              id
+              title {
+                english
+              }
+              coverImage {
+                large
+              }
+            }
+          }
+        }
+      `;
+
+      try {
+        const response = await axios.post('https://graphql.anilist.co', {
+          query: query
+        });
+        setPopularAnimeList(response.data.data.Page.media);
+      } catch (error) {
+        console.error('Error fetching trending anime:', error);
+      }
+    };
+
+    fetchPopularAnime();
+  }, [])
+  // FETCH TOP 10 ANIME FROM API
   const [topAnimeList, setTopAnimeList] = useState([])
   useEffect(() => {
     const fetchTopAnime = async () => {
@@ -82,7 +122,17 @@ function HomePage() {
               }
               coverImage {
                 large
+                medium
+                color
               }
+              genres
+              format
+              season
+              seasonYear
+              episodes
+              status
+              meanScore
+              popularity
             }
           }
         }
@@ -101,7 +151,6 @@ function HomePage() {
     fetchTopAnime();
   }, [])
   
-
   // CHANGE TRENDING ANIME CARD WIDTH AND HEIGHT BASED ON SCREEN DIMENSION
   const [cardWidth, setCardWidth] = useState(0);
   const [cardHeight, setCardHeight] = useState(0);
@@ -165,7 +214,19 @@ function HomePage() {
     };
   }, []); // Empty dependency array ensures this runs only once on mount and cleanup on unmount
 
+  // CHANGE TOP ANIME DISPLAY BASED ON WINDOW WIDTH
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleSize = () =>{
+      setWindowWidth(window.innerWidth);
+    }
 
+    window.addEventListener('resize', handleSize)
+
+    return () =>{
+      window.removeEventListener('resize', handleSize);
+    };
+  }, []);
 
   return (
     <div id='home_page_container'>
@@ -233,29 +294,77 @@ function HomePage() {
       </div>
       <div id='anime_sliding_cards_container'>
           {animeList.map(trendingAnime => (
-            <div key={trendingAnime.id} className='anime_sliding_card_items' style={{width: `${cardWidth}px`, height: `auto`}}>
+            <Link to='/anime-description'><div key={trendingAnime.id} className='anime_sliding_card_items' style={{width: `${cardWidth}px`, height: `auto`}} onClick={() => getAnimeID(trendingAnime.id)}>
               <img style={{width:'auto', height: `${cardHeight}px`}} src={trendingAnime.coverImage.large} alt='anime_cover_image'></img>
               <div style={{width: `${textWidth}px`}} className='anime_sliding_card_info_container'>
                 <div className='anime_sliding_card_info'>Sub | Dub</div>
                 <div className='anime_sliding_card_info'>{trendingAnime.title.english}</div>
               </div>
-            </div>
+            </div></Link>
           ))}
       </div>
+      {/* POPULAR ANIME CARDS */}
+      <div id='cardAnime_flex_container'>
+        <div id='cardAnime_texts'>
+          <h1>Popular Anime</h1>
+          <Link to='/popular-anime'><div>See all {'>'}</div></Link>
+        </div>
+        <div id='cardAnime_container'>
+            {popularAnimeList.map(popularAnime => (
+              <Link to='/anime-description'><div key={popularAnime.id} className='cardAnime_card_container' onClick={() => getAnimeID(popularAnime.id)}>
+                <img src={popularAnime.coverImage.large} alt='cardAnime_cover_image'></img>
+                <div className='cardAnime_title'>{popularAnime.title.english}</div>
+              </div></Link>
+            ))}
+        </div>
+      </div>
+      {/* TOP 100 ANIME CARDS */}
       <div id='topAnime_flex_container'>
-        <div id='topAnime_texts'>
+        <div id='cardAnime_texts'>
           <h1>Top 100 Anime</h1>
           <Link to='/top-anime'><div>See all {'>'}</div></Link>
         </div>
-        <div id='topAnime_container'>
-            {topAnimeList.map(topAnime => (
-              <div key={topAnime.id} className='topAnime_card_container'>
-              <img src={topAnime.coverImage.large} alt='topAnime_cover_image'></img>
-              <div className='topAnime_title'>{topAnime.title.english}</div>
+        {windowWidth > 1040 ? (
+          <div id='cardAnime_container_wideWidth'>
+          {topAnimeList.map(topAnime => (
+            <Link to='/anime-description'><div key={topAnime.id} className='cardAnime_card_container_wideWidth' onClick={() => getAnimeID(topAnime.id)}>
+              <img src={topAnime.coverImage.medium} alt='cardAnime_cover_image'></img>
+              <div className='topAnime_titleGenre_container'>
+                <div className='cardAnime_title_wideWidth'>{topAnime.title.english}</div>
+                <div className='anime_genre_container'>
+                  {/* List only the 5 genres in an anime to prevent overflowing */}
+                  {topAnime.genres.slice(0, 4).map((genre, index) => (
+                    <div key={index} style={{backgroundColor: `${topAnime.coverImage.color}`}} className='topAnimeGenre'>{genre}</div>
+                  ))}
+                </div>
               </div>
+              {/* OTHER INFO OF ANIME (Popularity, Format, Season, etc.) */}
+              <div className='topAnime_other_info_container'>
+                <div>{topAnime.meanScore}%</div>
+                <div>{topAnime.popularity} users</div>
+              </div>
+              <div className='topAnime_other_info_container'>
+                <div>{topAnime.format}</div>
+                <div>{topAnime.episodes} episodes</div>
+              </div>
+              <div className='topAnime_other_info_container'>
+                <div>{topAnime.season} {topAnime.seasonYear}</div>
+                <div>{topAnime.status}</div>
+              </div>
+            </div></Link>
             ))}
-        </div>
-
+          </div>
+        ) : (
+          <div id='cardAnime_container'>
+          {topAnimeList.map(topAnime => (
+            <Link to='/anime-description'><div key={topAnime.id} className='cardAnime_card_container' onClick={() => getAnimeID(topAnime.id)}>
+              <img src={topAnime.coverImage.large} alt='cardAnime_cover_image'></img>
+              <div className='cardAnime_title'>{topAnime.title.english}</div>
+            </div></Link>
+          ))}
+          </div>
+        )}
+       
       </div>
       </div>
     
