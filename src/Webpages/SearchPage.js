@@ -66,7 +66,7 @@ function SearchAnime(){
             }
         };
         fetchAnime();
-    }, [])
+    }, [searchedAnime])
     
     function nextPage(){
         if(currentPage >= lastPage){

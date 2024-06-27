@@ -20,6 +20,14 @@
     width: 98%;
     justify-content: space-between;
 }
+#navBar_home_button{
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+    background-color: var(--theme_color);
+}
 #top_bar_search_bar{
     all: unset;
   

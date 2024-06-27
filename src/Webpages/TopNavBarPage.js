@@ -2,10 +2,11 @@ import '../stylesFolder/topNavBar.css'
 import { Link, useNavigate } from 'react-router-dom';
 
 import { addSearchAnimeString } from '../redux';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 
 function TopNavBar(){
     const dispatch = useDispatch();
+    const searchedAnime = useSelector((state) => state.animeFilter.searchedAnime);
 
     const navigate = useNavigate();
     
@@ -13,6 +14,7 @@ function TopNavBar(){
         const searchBar = document.getElementById('top_bar_search_bar');
         if(searchBar.value !== ''){
             dispatch(addSearchAnimeString(searchBar.value));
+            console.log(searchedAnime)
             navigate('/search-anime');
         }else{
             alert('Empty string :: Please input a value')
@@ -22,6 +24,7 @@ function TopNavBar(){
         <div id="top_navbar">
             <div id='top_bar_container'>
                 <div id='search_bar_container'>
+                    <Link to='/home'><div id='navBar_home_button'>Home</div></Link>
                     <input id='top_bar_search_bar' type='text' placeholder='Enter anime name...'/>
                     <div id='search_bar_icon_container'>
                     <div onClick={searchClick}>
