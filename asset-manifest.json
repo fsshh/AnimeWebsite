@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/AnimeWebsite/static/css/main.ffc5e99b.css",
-    "main.js": "/AnimeWebsite/static/js/main.9cfb6834.js",
+    "main.css": "/AnimeWebsite/static/css/main.e40374ef.css",
+    "main.js": "/AnimeWebsite/static/js/main.1004fa7b.js",
     "static/js/488.6ff3a407.chunk.js": "/AnimeWebsite/static/js/488.6ff3a407.chunk.js",
     "static/media/one_piece_logo.png": "/AnimeWebsite/static/media/one_piece_logo.8ad97b5b31a8d588ce06.png",
     "static/media/naruto_logo.png": "/AnimeWebsite/static/media/naruto_logo.b69da398621b718ed245.png",
     "static/media/sansation.light.ttf": "/AnimeWebsite/static/media/sansation.light.4b0e0e7199c58c7cc1d3.ttf",
     "static/media/bleach_logo.png": "/AnimeWebsite/static/media/bleach_logo.41b20d531fdadaae0e1f.png",
     "index.html": "/AnimeWebsite/index.html",
-    "main.ffc5e99b.css.map": "/AnimeWebsite/static/css/main.ffc5e99b.css.map",
-    "main.9cfb6834.js.map": "/AnimeWebsite/static/js/main.9cfb6834.js.map",
+    "main.e40374ef.css.map": "/AnimeWebsite/static/css/main.e40374ef.css.map",
+    "main.1004fa7b.js.map": "/AnimeWebsite/static/js/main.1004fa7b.js.map",
     "488.6ff3a407.chunk.js.map": "/AnimeWebsite/static/js/488.6ff3a407.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ffc5e99b.css",
-    "static/js/main.9cfb6834.js"
+    "static/css/main.e40374ef.css",
+    "static/js/main.1004fa7b.js"
   ]
 }
