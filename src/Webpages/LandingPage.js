@@ -14,7 +14,7 @@ function LandingPage() {
     const searchBar = document.getElementById('search_bar');
     if(searchBar.value !== ''){
       dispatch(addSearchAnimeString(searchBar.value));
-      navigate('/search-anime');
+      navigate('/AnimeWebsite/search-anime');
     }else{
       alert('Empty string :: Please input a value')
     }

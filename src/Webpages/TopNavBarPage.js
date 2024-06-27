@@ -15,7 +15,7 @@ function TopNavBar(){
         if(searchBar.value !== ''){
             dispatch(addSearchAnimeString(searchBar.value));
             console.log(searchedAnime)
-            navigate('/search-anime');
+            navigate('/AnimeWebsite/search-anime');
         }else{
             alert('Empty string :: Please input a value')
         }
