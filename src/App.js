@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import LandingPage from './Webpages/LandingPage.js';
 import HomePage from './Webpages/Home.js';
-import TestFile from './Webpages/testFile.js';
 import FilterPage from './Webpages/FilterPage.js';
 import TrendingAnime from './Webpages/TrendingAnimePage.js';
 import PopularAnime from './Webpages/PopularAnimePage.js';
@@ -21,15 +20,14 @@ function App() {
     <Provider store={store}>
       <Router>
         <Routes>
-          <Route path='/' element={<LandingPage/>} />
-          <Route path='/home' element={<HomePage/>} />
-          <Route path='/testfile' element={<TestFile/>} />
-          <Route path='/filter' element={<FilterPage/>} />
-          <Route path='/trending-anime' element={<TrendingAnime/>} />
-          <Route path='/popular-anime' element={<PopularAnime/>} />
-          <Route path='/top-anime' element={<TopAnime/>} />
-          <Route path='/anime-description' element={<AnimeDescription/>} />
-          <Route path='/search-anime' element={<SearchAnime/>} />
+          <Route path='/AnimeWebsite' element={<LandingPage/>} />
+          <Route path='AnimeWebsite/home' element={<HomePage/>} />
+          <Route path='AnimeWebsite/filter' element={<FilterPage/>} />
+          <Route path='AnimeWebsite/trending-anime' element={<TrendingAnime/>} />
+          <Route path='AnimeWebsite/popular-anime' element={<PopularAnime/>} />
+          <Route path='AnimeWebsite/top-anime' element={<TopAnime/>} />
+          <Route path='AnimeWebsite/anime-description' element={<AnimeDescription/>} />
+          <Route path='AnimeWebsite/search-anime' element={<SearchAnime/>} />
         </Routes>
       </Router>
     </Provider>

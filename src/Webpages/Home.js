@@ -289,12 +289,12 @@ function HomePage() {
       <div id='sliding_card_texts'>
         <div>
           <h1>TRENDING NOW</h1>
-          <Link to='/trending-anime'><div>{'See All >'}</div></Link>
+          <Link to='/AnimeWebsite/trending-anime'><div>{'See All >'}</div></Link>
         </div>
       </div>
       <div id='anime_sliding_cards_container'>
           {animeList.map(trendingAnime => (
-            <Link to='/anime-description'><div key={trendingAnime.id} className='anime_sliding_card_items' style={{width: `${cardWidth}px`, height: `auto`}} onClick={() => getAnimeID(trendingAnime.id)}>
+            <Link to='/AnimeWebsite/anime-description'><div key={trendingAnime.id} className='anime_sliding_card_items' style={{width: `${cardWidth}px`, height: `auto`}} onClick={() => getAnimeID(trendingAnime.id)}>
               <img style={{width:'auto', height: `${cardHeight}px`}} src={trendingAnime.coverImage.large} alt='anime_cover_image'></img>
               <div style={{width: `${textWidth}px`}} className='anime_sliding_card_info_container'>
                 <div className='anime_sliding_card_info'>Sub | Dub</div>
@@ -307,11 +307,11 @@ function HomePage() {
       <div id='cardAnime_flex_container'>
         <div id='cardAnime_texts'>
           <h1>Popular Anime</h1>
-          <Link to='/popular-anime'><div>See all {'>'}</div></Link>
+          <Link to='/AnimeWebsite/popular-anime'><div>See all {'>'}</div></Link>
         </div>
         <div id='cardAnime_container'>
             {popularAnimeList.map(popularAnime => (
-              <Link to='/anime-description'><div key={popularAnime.id} className='cardAnime_card_container' onClick={() => getAnimeID(popularAnime.id)}>
+              <Link to='/AnimeWebsite/anime-description'><div key={popularAnime.id} className='cardAnime_card_container' onClick={() => getAnimeID(popularAnime.id)}>
                 <img src={popularAnime.coverImage.large} alt='cardAnime_cover_image'></img>
                 <div className='cardAnime_title'>{popularAnime.title.english}</div>
               </div></Link>
@@ -322,12 +322,12 @@ function HomePage() {
       <div id='topAnime_flex_container'>
         <div id='cardAnime_texts'>
           <h1>Top 100 Anime</h1>
-          <Link to='/top-anime'><div>See all {'>'}</div></Link>
+          <Link to='/AnimeWebsite/top-anime'><div>See all {'>'}</div></Link>
         </div>
         {windowWidth > 1040 ? (
           <div id='cardAnime_container_wideWidth'>
           {topAnimeList.map(topAnime => (
-            <Link to='/anime-description'><div key={topAnime.id} className='cardAnime_card_container_wideWidth' onClick={() => getAnimeID(topAnime.id)}>
+            <Link to='/AnimeWebsite/anime-description'><div key={topAnime.id} className='cardAnime_card_container_wideWidth' onClick={() => getAnimeID(topAnime.id)}>
               <img src={topAnime.coverImage.medium} alt='cardAnime_cover_image'></img>
               <div className='topAnime_titleGenre_container'>
                 <div className='cardAnime_title_wideWidth'>{topAnime.title.english}</div>
@@ -357,7 +357,7 @@ function HomePage() {
         ) : (
           <div id='cardAnime_container'>
           {topAnimeList.map(topAnime => (
-            <Link to='/anime-description'><div key={topAnime.id} className='cardAnime_card_container' onClick={() => getAnimeID(topAnime.id)}>
+            <Link to='/AnimeWebsite/anime-description'><div key={topAnime.id} className='cardAnime_card_container' onClick={() => getAnimeID(topAnime.id)}>
               <img src={topAnime.coverImage.large} alt='cardAnime_cover_image'></img>
               <div className='cardAnime_title'>{topAnime.title.english}</div>
             </div></Link>

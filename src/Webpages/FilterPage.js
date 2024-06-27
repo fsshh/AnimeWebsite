@@ -228,7 +228,7 @@ function FilterPage(){
                 <h1>Current Page: {currentPage} | Last Page: {lastPage}</h1>
                 <div id='trending_anime_container'>
                     {animeList.map(anime => (
-                        <Link to='/anime-description'><div key={anime.id} className='trending_anime_item' onClick={() => getAnimeID(anime.id)}>
+                        <Link to='/AnimeWebsite/anime-description'><div key={anime.id} className='trending_anime_item' onClick={() => getAnimeID(anime.id)}>
                             <img src={anime.coverImage.large} alt='anime_cover_image'></img>
                             <div className='trending_anime_info_container'>
                                 <div>Sub | Dub</div>

@@ -48,7 +48,7 @@ function LandingPage() {
               </Link>
             </div>
               {/* Home Button */}
-                <Link to='/home'><div id='home_button' style={{color: 'black'}}>Go to home page...</div></Link>
+                <Link to='/AnimeWebsite/home'><div id='home_button' style={{color: 'black'}}>Go to home page...</div></Link>
           </div>
       </div>
   );
